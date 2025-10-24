@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IARE Samvidha Portal</title>
+  <title>IARE Student Portal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>📑 Student Portal</h1>
+    <h1>📑 IARE Student Portal</h1>
 
     <div class="tabs">
       <button id="docTab" class="active">Documents</button>
@@ -20,11 +20,25 @@
       <form id="docForm">
         <label>Enter Roll Number:</label>
         <input type="text" id="rollNo" placeholder="Enter Roll Number" required />
+
         <label>Select Document:</label>
         <select id="docType" required>
           <option value="">-- Choose --</option>
-          <option value="PHOTO">Photo</option>
-          <option value="FIELDPROJECT">Field Project</option>
+          <option value="PHOTO">Student Photo</option>
+          <option value="SSC">SSC Certificate</option>
+          <option value="INTER">Inter Certificate</option>
+          <option value="Aadhar">Aadhaar</option>
+          <option value="Income">Income Certificate</option>
+          <option value="Caste">Caste Certificate</option>
+          <option value="TC">Transfer Certificate</option>
+          <option value="CET_ALLOTMENT_ORDER">CET Allotment Order</option>
+          <option value="JR">Joining Report</option>
+          <option value="INTER_BONAFIDE">Inter Bonafide</option>
+          <option value="SSC_BONAFIDE">SSC Bonafide</option>
+          <option value="EAMCET_RANK">EAMCET/ECET/ICET/PGCET Rank</option>
+          <option value="CET_HALLTICKET">EAMCET/ECET/ICET/PGCET Hall Ticket</option>
+          <option value="BIRTHCERTIFICATE">Date of Birth Certificate</option>
+          <option value="FIELDPROJECT">Field Project Report (PDF)</option>
         </select>
         <button type="submit">View Document</button>
       </form>
