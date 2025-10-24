@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IARE Samvidha Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📑 Student Portal</h1>
+
+    <div class="tabs">
+      <button id="docTab" class="active">Documents</button>
+      <button id="resTab">Results</button>
+    </div>
+
+    <!-- Documents Section -->
+    <div id="docSection" class="tab-content">
+      <form id="docForm">
+        <label>Enter Roll Number:</label>
+        <input type="text" id="rollNo" placeholder="Enter Roll Number" required />
+        <label>Select Document:</label>
+        <select id="docType" required>
+          <option value="">-- Choose --</option>
+          <option value="PHOTO">Photo</option>
+          <option value="FIELDPROJECT">Field Project</option>
+        </select>
+        <button type="submit">View Document</button>
+      </form>
+      <div id="resultBox" class="result"></div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resSection" class="tab-content hidden">
+      <form id="resForm">
+        <label>Enter Roll Number:</label>
+        <input type="text" id="resRoll" placeholder="Enter Roll Number" required />
+        <button type="submit">View Result</button>
+      </form>
+      <div id="resBox" class="result"></div>
+    </div>
+
+    <footer>© 2025 College Portal</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
