@@ -41,31 +41,44 @@ module.exports = async (req, res) => {
         }
       });
 
-      // More reliable SGPA/CGPA extraction
+      // Robust SGPA / CGPA scraping
       let sgpa = null, cgpa = null;
+
+      // Check all <b> tags
       $("b").each((i, el) => {
         const txt = $(el).text().toUpperCase();
-        if (txt.includes("SGPA")) {
+        if (!sgpa && txt.includes("SGPA")) {
           const match = txt.match(/SGPA[^0-9]*([0-9]+\.[0-9]+)/);
           if (match) sgpa = match[1];
         }
-        if (txt.includes("CGPA")) {
+        if (!cgpa && txt.includes("CGPA")) {
           const match = txt.match(/CGPA[^0-9]*([0-9]+\.[0-9]+)/);
           if (match) cgpa = match[1];
         }
       });
 
-      // Fallback: check any text near "SGPA"/"CGPA"
-      if (!sgpa || !cgpa) {
-        const fullText = $("body").text().toUpperCase();
-        if (!sgpa) {
-          const match = fullText.match(/SGPA[^0-9]*([0-9]+\.[0-9]+)/);
+      // Check table cells containing "SGPA"/"CGPA"
+      $("td").each((i, el) => {
+        const txt = $(el).text().toUpperCase();
+        if (!sgpa && txt.includes("SGPA")) {
+          const match = txt.match(/([0-9]+\.[0-9]+)/);
           if (match) sgpa = match[1];
         }
-        if (!cgpa) {
-          const match = fullText.match(/CGPA[^0-9]*([0-9]+\.[0-9]+)/);
+        if (!cgpa && txt.includes("CGPA")) {
+          const match = txt.match(/([0-9]+\.[0-9]+)/);
           if (match) cgpa = match[1];
         }
+      });
+
+      // Fallback: entire text search
+      const fullText = $("body").text().toUpperCase();
+      if (!sgpa) {
+        const match = fullText.match(/SGPA[^0-9]*([0-9]+\.[0-9]+)/);
+        if (match) sgpa = match[1];
+      }
+      if (!cgpa) {
+        const match = fullText.match(/CGPA[^0-9]*([0-9]+\.[0-9]+)/);
+        if (match) cgpa = match[1];
       }
 
       results.push({
