@@ -41,15 +41,38 @@ module.exports = async (req, res) => {
         }
       });
 
-      const text = $.text().toUpperCase();
-      let sgpa = text.match(/SGPA[:=\s]*([0-9]+\.[0-9]+)/)?.[1] || null;
-      let cgpa = text.match(/CGPA[:=\s]*([0-9]+\.[0-9]+)/)?.[1] || null;
+      // More reliable SGPA/CGPA extraction
+      let sgpa = null, cgpa = null;
+      $("b").each((i, el) => {
+        const txt = $(el).text().toUpperCase();
+        if (txt.includes("SGPA")) {
+          const match = txt.match(/SGPA[^0-9]*([0-9]+\.[0-9]+)/);
+          if (match) sgpa = match[1];
+        }
+        if (txt.includes("CGPA")) {
+          const match = txt.match(/CGPA[^0-9]*([0-9]+\.[0-9]+)/);
+          if (match) cgpa = match[1];
+        }
+      });
+
+      // Fallback: check any text near "SGPA"/"CGPA"
+      if (!sgpa || !cgpa) {
+        const fullText = $("body").text().toUpperCase();
+        if (!sgpa) {
+          const match = fullText.match(/SGPA[^0-9]*([0-9]+\.[0-9]+)/);
+          if (match) sgpa = match[1];
+        }
+        if (!cgpa) {
+          const match = fullText.match(/CGPA[^0-9]*([0-9]+\.[0-9]+)/);
+          if (match) cgpa = match[1];
+        }
+      }
 
       results.push({
         exam_title: exam.exam_title,
         subjects,
-        sgpa,
-        cgpa
+        sgpa: sgpa || "N/A",
+        cgpa: cgpa || "N/A"
       });
     }
 
