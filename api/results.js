@@ -8,7 +8,6 @@ module.exports = async (req, res) => {
   if (!roll) return res.status(400).json({ error: "Roll number required" });
 
   try {
-    // 1️⃣ Get list of exams
     const examList = await axios.get(BASE_URL + "examresults", {
       params: { action: "exam_code_list", rollno: roll }
     });
